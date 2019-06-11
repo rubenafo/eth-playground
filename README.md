@@ -3,4 +3,4 @@ Ethereum docker images
 
 Build and run Ethereum nodes inside Docker.   
 Currently:
-  * fetches and build an Ethereum Docker image
+  * fetches and builds an Ethereum Docker image
