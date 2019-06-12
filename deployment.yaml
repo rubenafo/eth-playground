@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geth-deployment
+  labels:
+    app: geth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mygeth
+  template:
+    metadata:
+      labels:
+        app: mygeth
+    spec:
+      containers:
+      - name: mygeth
+        image: mygeth:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
