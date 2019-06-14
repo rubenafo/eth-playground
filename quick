@@ -1,3 +1,0 @@
-eval $(minikube docker-env)
-kubectl create -f deployment.yaml
-kubectl delete deploy/geth-deployment

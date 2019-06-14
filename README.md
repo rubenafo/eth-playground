@@ -1,5 +1,5 @@
 # eth-playground
-Ethereum docker images
+Ethereum docker images running on Kubernetes (WIP)
 
 Build and run Ethereum nodes inside Docker.   
 Currently:

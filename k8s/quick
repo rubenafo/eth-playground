@@ -1,0 +1,4 @@
+# diagnosis
+kubectl get pods
+kubectl describe pod _pod_id_
+kubectl logs _pod_id_
