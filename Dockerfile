@@ -10,4 +10,4 @@ USER ethuser
 RUN git clone https://github.com/ethereum/go-ethereum
 WORKDIR go-ethereum
 RUN make geth
-
+CMD ["./build/bin/geth"]
