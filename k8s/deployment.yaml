@@ -18,4 +18,4 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 80
-        command: ["echo", "SUCCESS"]
+        command: ["sleep", "infinity"]
