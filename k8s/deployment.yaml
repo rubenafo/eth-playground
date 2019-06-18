@@ -12,6 +12,8 @@ spec:
       labels:
         app: geth-app
     spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: geth-node
         image: mygeth

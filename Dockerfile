@@ -8,6 +8,8 @@ RUN useradd -m -s /bin/bash ethuser
 WORKDIR /home/ethuser
 USER ethuser
 RUN git clone https://github.com/ethereum/go-ethereum
-WORKDIR go-ethereum
-RUN make geth
-CMD ["./build/bin/geth"]
+RUN cd go-ethereum && make geth
+USER root
+RUN cp /home/ethuser/go-ethereum/build/bin/* /usr/local/bin
+USER ethuser
+#CMD ["./build/bin/geth"]
