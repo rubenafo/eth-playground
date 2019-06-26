@@ -1,1 +1,1 @@
-bootnode --nodekey bootnode.key --datadir data --verbosity 4 >> data/bootnode.log
+bootnode --nodekey bootnode.key --verbosity 4 >> data/bootnode.log
