@@ -1,1 +1,1 @@
-docker build . -t mygeth
+docker build . -t ethimg
