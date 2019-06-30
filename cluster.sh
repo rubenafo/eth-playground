@@ -8,10 +8,13 @@ function startNetwork {
   sleep 5
   echo "Starting network..."
   bootnodeIp=`docker inspect ethbn -f "{{.NetworkSettings.Networks.ethnet.IPAddress}}"`
+  echo "Starting bootnde..."
   docker exec -u ethuser -d ethbn bash config/bootnode.sh $bootnodeIp
-  docker exec -u ethuser -d eth1  bash config/node.sh start
-  docker exec -u ethuser -d eth2  bash config/node.sh start
-  docker exec -u ethuser -d eth3  bash config/node.sh start
+  sleep 5
+  echo "Starting eth1, eth2, eth3..."
+  docker exec -u ethuser -d eth1 bash config/node.sh start
+  docker exec -u ethuser -d eth2 bash config/node.sh start
+  docker exec -u ethuser -d eth3 bash config/node.sh start
   #show_info
 }
 
