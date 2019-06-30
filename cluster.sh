@@ -1,42 +1,38 @@
 #!/bin/bash
 
+#
 # Bring the services up
+#
 function startNetwork {
   docker start ethbn eth1 eth2 eth3
   sleep 5
-  #echo ">> Starting hdfs ..."
-  #docker exec -u hadoop -it nodemaster hadoop/sbin/start-dfs.sh
-  #sleep 5
-  #echo ">> Starting yarn ..."
-  #docker exec -u hadoop -d nodemaster hadoop/sbin/start-yarn.sh
-  #sleep 5
-  #echo ">> Starting Spark ..."
   echo "Starting network..."
-  docker exec -u ethuser -d ethbn config/bootnode.sh
-  docker exec -u ethuser -d eth1 config/node.sh
-  docker exec -u ethuser -d eth2 config/node.sh
-  docker exec -u ethuser -d eth3 config/node.sh
-  show_info
+  bootnodeIp=`docker inspect ethbn -f "{{.NetworkSettings.Networks.ethnet.IPAddress}}"`
+  docker exec -u ethuser -d ethbn bash config/bootnode.sh $bootnodeIp
+  docker exec -u ethuser -d eth1  bash config/node.sh start
+  docker exec -u ethuser -d eth2  bash config/node.sh start
+  docker exec -u ethuser -d eth3  bash config/node.sh start
+  #show_info
 }
 
-function show_info {
-  masterIp=`docker inspect -f "{{ .NetworkSettings.Networks.ethnet.IPAddress }}" ethbootnode`
+#function show_info {
+  #masterIp=`docker inspect -f "{{ .NetworkSettings.Networks.ethnet.IPAddress }}" ethbootnode`
   #echo "Hadoop info @ nodemaster: http://$masterIp:8088/cluster"
   #echo "Spark info @ nodemater  : http://$masterIp:8080/"
   #echo "DFS Health @ nodemaster : http://$masterIp:9870/dfshealth.html"
-}
+#}
 
 if [[ $1 = "start" ]]; then
-  startServices
+  startNetwork
   exit
 fi
 
 if [[ $1 = "stop" ]]; then
-  docker exec -u ethuser -d ethbn config/node.sh stop
-  docker exec -u ethuser -d eth1 config/node.sh stop
-  docker exec -u ethuser -d eth2 config/node.sh stop
-  docker exec -u ethuser -d eth3 config/node.sh stop
-  docker stop ethbn node1 node2 node3
+  docker exec -u ethuser -d ethbn bash node.sh stop
+  docker exec -u ethuser -d eth1  bash node.sh stop
+  docker exec -u ethuser -d eth2  bash config/node.sh stop
+  docker exec -u ethuser -d eth3  bash config/node.sh stop
+  docker stop ethbn eth1 eth2 eth3
   exit
 fi
 
@@ -54,8 +50,8 @@ if [[ $1 = "deploy" ]]; then
 
   # Prepare bootnode
   echo ">> Preparing bootnode ..."
-  docker exec -u ethuser -it ethbn config/genKey.sh
-  startNetwork
+  docker exec -u ethuser -d ethbn bash config/genKey.sh
+  #startNetwork
   exit
 fi
 
