@@ -1,7 +1,0 @@
-# diagnosis
-kubectl get pods
-kubectl describe pod _pod_id_
-kubectl logs _pod_id_
-
-# bash into pod
-kubectl exec -it _pod_id_ -- /bin/bash
