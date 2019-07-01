@@ -15,6 +15,8 @@ function startNetwork {
   docker exec -u ethuser -d eth1 bash config/node.sh start
   docker exec -u ethuser -d eth2 bash config/node.sh start
   docker exec -u ethuser -d eth3 bash config/node.sh start
+  echo "Starting netstat..."
+  docker run -dP --network ethnet --name netstat -it -h netstat netstat -img
   #show_info
 }
 
@@ -35,7 +37,7 @@ if [[ $1 = "stop" ]]; then
   docker exec -u ethuser -d eth1  bash node.sh stop
   docker exec -u ethuser -d eth2  bash config/node.sh stop
   docker exec -u ethuser -d eth3  bash config/node.sh stop
-  docker stop ethbn eth1 eth2 eth3
+  docker stop ethbn eth1 eth2 eth3 netstat
   exit
 fi
 
