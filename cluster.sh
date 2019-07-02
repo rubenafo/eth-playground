@@ -56,6 +56,11 @@ if [[ $1 = "deploy" ]]; then
   # Prepare bootnode
   echo ">> Preparing bootnode ..."
   docker exec -u ethuser -d ethbn bash config/genKey.sh
+  echo ">> Init eth nodes..."
+  docker exec -u ethuser -d ethbn bash config/node init
+  docker exec -u ethuser -d eth1 bash config/node init
+  docker exec -u ethuser -d eth2 bash config/node init
+  docker exec -u ethuser -d eth3 bash config/node init
   #startNetwork
   exit
 fi

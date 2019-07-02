@@ -1,4 +1,4 @@
-bootnode --nodekey /home/ethuser/bootnode.key 2>> /home/ethuser/bootnode.log &
+bootnode --nodekey /home/ethuser/bootnode.key 2>> /home/ethuser/node.log &
 
 echo "Setting bootnode to broadcast itself @ " $1
 while [ 1 ]; do 
