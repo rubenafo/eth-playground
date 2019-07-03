@@ -19,5 +19,5 @@ fi
 
 if [[ $1 = "init" ]]; then
   echo "Init eth node in $HOSTNAME..."
-  get -datadir /home/ethuser/data init config/genesis.json 2>> /home/ethuser/node.log
+  geth -datadir /home/ethuser/data init config/genesis.json 2>> /home/ethuser/node.log
 fi
