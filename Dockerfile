@@ -2,7 +2,8 @@ FROM ubuntu:18.10
 
 USER root
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends --fix-missing openssh-server vim build-essential git golang ca-certificates iputils-ping curl netcat
+RUN apt-get install -y --no-install-recommends --fix-missing openssh-server vim build-essential git golang ca-certificates iputils-ping curl netcat nodejs npm
+RUN npm install web3
 RUN useradd -m -s /bin/bash ethuser
 
 WORKDIR /home/ethuser
