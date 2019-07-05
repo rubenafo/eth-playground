@@ -1,7 +1,7 @@
 # eth-playground
-Simple ethereum private network running on a Docker network (WIP)
+Simple ethereum private network running on Docker (WIP)
 
-Build and run Ethereum nodes inside Docker.   
+Builds and runs Ethereum nodes inside a Docker network.
 Currently:
   * fetches and builds an Ethereum Docker image
   * Setups a bootnode with 3 ethereum nodes
