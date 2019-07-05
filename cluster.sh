@@ -10,7 +10,7 @@ function startNetwork {
   bootnodeIp=`docker inspect ethbn -f "{{.NetworkSettings.Networks.ethnet.IPAddress}}"`
   echo "Starting bootnde..."
   docker exec -u ethuser -d ethbn bash config/bootnode.sh $bootnodeIp
-  sleep 5
+  sleep 10
   echo "Starting eth1, eth2, eth3..."
   docker exec -u ethuser -d eth1 bash config/node.sh start
   docker exec -u ethuser -d eth2 bash config/node.sh start
@@ -33,8 +33,8 @@ if [[ $1 = "start" ]]; then
 fi
 
 if [[ $1 = "stop" ]]; then
-  docker exec -u ethuser -d ethbn bash node.sh stop
-  docker exec -u ethuser -d eth1  bash node.sh stop
+  docker exec -u ethuser -d ethbn bash config/node.sh stop
+  docker exec -u ethuser -d eth1  bash config/node.sh stop
   docker exec -u ethuser -d eth2  bash config/node.sh stop
   docker exec -u ethuser -d eth3  bash config/node.sh stop
   docker stop ethbn eth1 eth2 eth3 netstat
@@ -57,10 +57,10 @@ if [[ $1 = "deploy" ]]; then
   echo ">> Preparing bootnode ..."
   docker exec -u ethuser -d ethbn bash config/genKey.sh
   echo ">> Init eth nodes..."
-  docker exec -u ethuser -d ethbn bash config/node init
-  docker exec -u ethuser -d eth1 bash config/node init
-  docker exec -u ethuser -d eth2 bash config/node init
-  docker exec -u ethuser -d eth3 bash config/node init
+  docker exec -u ethuser -d ethbn bash config/node.sh init
+  docker exec -u ethuser -d eth1 bash config/node.sh init
+  docker exec -u ethuser -d eth2 bash config/node.sh init
+  docker exec -u ethuser -d eth3 bash config/node.sh init
   #startNetwork
   exit
 fi
