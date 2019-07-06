@@ -75,7 +75,7 @@ if [[ $1 = "login" ]]; then
   exit
 fi
 
-if [[ $1 = "eth" ]]; then
+if [[ $1 = "geth" ]]; then
   docker exec -it $2 geth attach data/geth.ipc console
   exit
 fi
