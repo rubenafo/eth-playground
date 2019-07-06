@@ -70,8 +70,19 @@ if [[ $1 = "info" ]]; then
   exit
 fi
 
-echo "Usage: cluster.sh deploy|start|stop"
+if [[ $1 = "login" ]]; then
+  docker exec -it $2 bash
+  exit
+fi
+
+if [[ $1 = "eth" ]]; then
+  docker exec -it $2 geth attach data/geth.ipc console
+  exit
+fi
+
+echo "Usage: cluster deploy|start|stop"
 echo "                 deploy - create a new Ethereum network"
 echo "                 start  - start the existing containers"
 echo "                 stop   - stop the running containers" 
-echo "                 info   - useful URLs" 
+echo "       cluster login eth1|eth2|eth3|ethbn|netstat - opens a console" 
+echo "       cluster eth eth1|eth2|eth3|ethbn|netstat - open geth console"
