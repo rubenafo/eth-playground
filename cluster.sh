@@ -16,7 +16,7 @@ function startNetwork {
   docker exec -u ethuser -d eth2 bash config/node.sh start
   docker exec -u ethuser -d eth3 bash config/node.sh start
   echo "Starting netstat..."
-  docker run -dP --network ethnet --name netstat -it -h netstat netstat -img
+  docker run -dP --network ethnet --name netstat -it -h netstat netstat-img
   #show_info
 }
 
