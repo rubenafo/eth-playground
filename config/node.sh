@@ -15,7 +15,12 @@ if [[ $1 = "start" ]]; then
   echo "Starting eth node in $HOSTNAME..." >> $LOG
   bootnode=`curl ethbn:9090`
   echo "Bootnode: $bootnode" >> $LOG
-  geth -datadir /home/ethuser/data -bootnodes $bootnode --networkid 500 --rpc 2>> $LOG
+  geth -datadir /home/ethuser/data -bootnodes $bootnode --nousb --networkid 500 --mine --rpc 2>> $LOG
+  localAccount=`geth --exec \"eth.coinbase\" -verbosity 0 -datadir data/ attach`
+  echo "Broadcasting local account @ " $1 >> $LOG
+  while [ 1 ]; do 
+     echo  $localAccount | nc -q 1 -l -p 9091 || break
+  done
 fi
 
 if [[ $1 = "init" ]]; then

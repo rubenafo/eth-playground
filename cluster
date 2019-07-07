@@ -6,26 +6,23 @@
 function startNetwork {
   docker start ethbn eth1 eth2 eth3
   sleep 5
-  echo "Starting network..."
+  echo "Start:: starting network..."
   bootnodeIp=`docker inspect ethbn -f "{{.NetworkSettings.Networks.ethnet.IPAddress}}"`
-  echo "Starting bootnde..."
+  echo "Start: starting bootnode..."
   docker exec -u ethuser -d ethbn bash config/bootnode.sh $bootnodeIp
   sleep 10
-  echo "Starting eth1, eth2, eth3..."
+  echo "Start: starting eth1, eth2, eth3..."
   docker exec -u ethuser -d eth1 bash config/node.sh start
   docker exec -u ethuser -d eth2 bash config/node.sh start
   docker exec -u ethuser -d eth3 bash config/node.sh start
-  echo "Starting netstat..."
+  echo "Start: starting netstat node..."
   docker run -dP --network ethnet --name netstat -it -h netstat netstat-img
-  #show_info
 }
 
-#function show_info {
-  #masterIp=`docker inspect -f "{{ .NetworkSettings.Networks.ethnet.IPAddress }}" ethbootnode`
-  #echo "Hadoop info @ nodemaster: http://$masterIp:8088/cluster"
-  #echo "Spark info @ nodemater  : http://$masterIp:8080/"
-  #echo "DFS Health @ nodemaster : http://$masterIp:9870/dfshealth.html"
-#}
+function show_info {
+  netstatIp=`docker inspect netstat -f "{{.NetworkSettings.Networks.ethnet.IPAddress}}"`
+  echo "Nestat: http://$netstatIp:3000"
+}
 
 if [[ $1 = "start" ]]; then
   startNetwork
@@ -33,10 +30,12 @@ if [[ $1 = "start" ]]; then
 fi
 
 if [[ $1 = "stop" ]]; then
+  echo "Stop: stopping node processes..."
   docker exec -u ethuser -d ethbn bash config/node.sh stop
   docker exec -u ethuser -d eth1  bash config/node.sh stop
   docker exec -u ethuser -d eth2  bash config/node.sh stop
   docker exec -u ethuser -d eth3  bash config/node.sh stop
+  echo "Stop: stopping node instances..."
   docker stop ethbn eth1 eth2 eth3 netstat
   exit
 fi
@@ -47,21 +46,21 @@ if [[ $1 = "deploy" ]]; then
   docker network create --driver bridge ethnet # create custom network
 
   # 3 nodes
-  echo ">> Starting nodes ..."
+  echo ">> Deploy:: creating node instances ..."
   docker run -dP --network ethnet --name ethbn -h ethbn -it ethimg
   docker run -dP --network ethnet --name eth1 -it -h eth1 ethimg
   docker run -dP --network ethnet --name eth2 -it -h eth2 ethimg
   docker run -dP --network ethnet --name eth3 -it -h eth3 ethimg
 
   # Prepare bootnode
-  echo ">> Preparing bootnode ..."
+  echo ">> Deploy: preparing bootnode ..."
   docker exec -u ethuser -d ethbn bash config/genKey.sh
-  echo ">> Init eth nodes..."
+  echo ">> Depoy: init eth nodes..."
   docker exec -u ethuser -d ethbn bash config/node.sh init
   docker exec -u ethuser -d eth1 bash config/node.sh init
   docker exec -u ethuser -d eth2 bash config/node.sh init
   docker exec -u ethuser -d eth3 bash config/node.sh init
-  #startNetwork
+  startNetwork
   exit
 fi
 
@@ -85,4 +84,4 @@ echo "                 deploy - create a new Ethereum network"
 echo "                 start  - start the existing containers"
 echo "                 stop   - stop the running containers" 
 echo "       cluster login eth1|eth2|eth3|ethbn|netstat - opens a console" 
-echo "       cluster eth eth1|eth2|eth3|ethbn|netstat - open geth console"
+echo "       cluster geth eth1|eth2|eth3|ethbn|netstat - open geth console"

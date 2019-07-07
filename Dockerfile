@@ -17,4 +17,4 @@ RUN cp /home/ethuser/go-ethereum/build/bin/* /usr/local/bin
 USER ethuser
 WORKDIR /home/ethuser
 
-EXPOSE 9090 8545 8546 30303 30303/udp
+EXPOSE 9090 9091 8545 8546 30303 30303/udp
