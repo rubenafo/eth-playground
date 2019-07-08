@@ -6,7 +6,7 @@
 function startNetwork {
   docker start ethbn eth1 eth2 eth3
   sleep 5
-  echo "Start:: starting network..."
+  echo "Start: starting network..."
   bootnodeIp=`docker inspect ethbn -f "{{.NetworkSettings.Networks.ethnet.IPAddress}}"`
   echo "Start: starting bootnode..."
   docker exec -u ethuser -d ethbn bash config/bootnode.sh $bootnodeIp
