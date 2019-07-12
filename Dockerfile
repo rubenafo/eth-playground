@@ -15,6 +15,14 @@ COPY --chown=ethuser config /home/ethuser/config
 USER root
 RUN cp /home/ethuser/go-ethereum/build/bin/* /usr/local/bin
 USER ethuser
+
+WORKDIR /home/ethuser
+RUN git clone https://github.com/cubedro/eth-net-intelligence-api monitor
+COPY ./netstat/app.json monitor
+WORKDIR /home/ethuser/monitor
+RUN npm install pm2
+RUN npm install
+
 WORKDIR /home/ethuser
 
 EXPOSE 9090 9091 8545 8546 30301/udp 30303 30303/udp 30304
