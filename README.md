@@ -1,7 +1,7 @@
 # eth-playground
 An Ethereum private network running on Docker to mess with Blockchain and smart contracts.   
 <p align="center">
-<img src="https://github.com/rubenafo/eth-playground/blob/master/imgs/eth-stats.png" width="200">
+<img src="https://github.com/rubenafo/eth-playground/blob/master/imgs/eth-stats.png" width="600">
 </p>   
 
 ## Motivation
