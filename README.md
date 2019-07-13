@@ -1,5 +1,5 @@
 # eth-playground
-An Ethereum private network to mess with Ethereum running on Docker with style.
+An Ethereum private network running on Docker to mess with Blockchain and smart contracts.
 
 ## Motivation
 
