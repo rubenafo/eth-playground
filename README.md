@@ -10,9 +10,11 @@ The setup is simple enough to allow further experiments (it's a playground after
 
 Builds and maintains 3 independent nodes in a Docker network and a *bootnode* to connect them.   
 * Vanilla ethereum: everything is built and setup from scratch
-* Each node gets its own IP address and eth account.
-   * Each node broadcasts its default account id from the **9090** TCP port.
+* Each node gets its own IP address and eth account, also:
+   * broadcasts its default account id from the **9090** TCP port.
+   * reports stats to the *netsat* node that is running [eth-netstats](https://github.com/cubedro/eth-netstats)
 * The *bootnode* node connects nodes dynamically when added into the network
+* A *netstat* node displaying the [eth-netstat dashboard](https://github.com/cubedro/eth-netstats)
 * A bunch of scripts to control the cluster: build, start, stop, login into nodes, etc
 
 ## Install
@@ -33,3 +35,4 @@ Once installed the nodes are fully independentent and self-discoverable thanks t
 * cluster stop : stops the eth network
 * cluster start: starts the network again
 * cluster deploy: stops and deploys the whole network again
+* cluster info: displays the netstat node URL containing the dashboard
