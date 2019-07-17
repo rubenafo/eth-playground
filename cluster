@@ -79,6 +79,11 @@ if [[ $1 = "geth" ]]; then
   exit
 fi
 
+if [[ $1 = "log" ]]; then
+  docker exec $2 tail -f /home/ethuser/node.log
+  exit
+fi
+
 echo "Usage: cluster deploy|start|stop"
 echo "                 deploy - create a new Ethereum network"
 echo "                 start  - start the existing containers"
