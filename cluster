@@ -1,5 +1,7 @@
 #!/bin/bash
 
+declare NODES="eth1 eth2 eth3"
+
 #
 # Bring the services up
 #
@@ -23,6 +25,11 @@ function startNetwork {
 function show_info {
   netstatIp=`docker inspect netstat -f "{{.NetworkSettings.Networks.ethnet.IPAddress}}"`
   echo "Nestat: http://$netstatIp:3000"
+  echo "Accounts:"
+  for node in $NODES; do
+    IP=`docker inspect $node -f "{{.NetworkSettings.Networks.ethnet.IPAddress}}"`
+    echo "	"$node: `curl $IP:9091 -s | sed 's/\"//g'`
+  done
 }
 
 if [[ $1 = "start" ]]; then
