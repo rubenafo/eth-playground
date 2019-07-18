@@ -16,6 +16,7 @@ function startNetwork {
   docker exec -u ethuser -d eth2 bash config/node.sh start
   docker exec -u ethuser -d eth3 bash config/node.sh start
   echo "Start: starting netstat node..."
+  docker rm netstat
   docker run -dP --network ethnet --name netstat -it -h netstat netstat-img
 }
 
@@ -84,9 +85,10 @@ if [[ $1 = "log" ]]; then
   exit
 fi
 
-echo "Usage: cluster deploy|start|stop"
-echo "                 deploy - create a new Ethereum network"
-echo "                 start  - start the existing containers"
-echo "                 stop   - stop the running containers" 
-echo "       cluster login eth1|eth2|eth3|ethbn|netstat - opens a console" 
-echo "       cluster geth eth1|eth2|eth3|ethbn|netstat - open geth console"
+echo "Usage:"
+echo "       cluster deploy                            - create a new Ethereum network and start it"
+echo "       cluster start                             - start the existing containers"
+echo "       cluster stop                              - stop the running containers" 
+echo "       cluster login nodename                    - opens a console" 
+echo "       cluster geth nodename                     - open geth console"
+echo "       cluster log nodeName                      - displays node.log"
