@@ -92,6 +92,11 @@ if [[ $1 = "log" ]]; then
   exit
 fi
 
+if [[ $1 = "truffle" ]]; then
+  IP=`docker inspect $2 -f "{{.NetworkSettings.Networks.ethnet.IPAddress}}"`
+  exit
+fi
+
 echo "Usage:"
 echo "       cluster deploy                            - create a new Ethereum network and start it"
 echo "       cluster start                             - start the existing containers"
@@ -99,3 +104,4 @@ echo "       cluster stop                              - stop the running contai
 echo "       cluster login nodename                    - opens a console" 
 echo "       cluster geth nodename                     - open geth console"
 echo "       cluster log nodeName                      - displays node.log"
+echo "       cluster truffle nodename                  - displays truffle config to use the nodename"
