@@ -1,15 +1,18 @@
 # eth-playground
-An Ethereum private network to mess with Ethereum running on Docker with style.
+An Ethereum private network running on Docker to mess with Blockchain and smart contracts.   
+<p align="center">
+<img src="https://github.com/rubenafo/eth-playground/blob/master/imgs/eth-stats.png" width="600">
+</p>   
 
 ## Motivation
 
-To provide a simple, private Ethereum setup as close as possible to a real scenario where the nodes are completely independent and just share the same network.   
-The setup is simple enough to allow further experiments (it's a playground after all) and deals with all the Docker complexity and network details as node discovery.
+To provide a simple, private Ethereum setup as close as possible to a production environment where the nodes are completely independent and just share the same network.   
+The setup is simple enough to allow further experiments (thus the *playground* name) and deals with all the technical details as Docker deployment, node discovery and stats reporting.
 
 ## Features 
 
 Builds and maintains 3 independent nodes in a Docker network and a *bootnode* to connect them.   
-* Vanilla ethereum: everything is built and setup from scratch
+* Vanilla Ethereum: everything is built and setup from scratch
 * Each node gets its own IP address and eth account, also:
    * broadcasts its default account id from the **9090** TCP port.
    * reports stats to the *netsat* node that is running [eth-netstats](https://github.com/cubedro/eth-netstats)
