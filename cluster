@@ -50,6 +50,7 @@ fi
 
 if [[ $1 = "deploy" ]]; then
   docker rm -f `docker ps -aq` # delete old containers
+  docker rm -f netstat
   docker network rm ethnet
   docker network create --driver bridge ethnet # create custom network
 
@@ -94,6 +95,7 @@ fi
 
 if [[ $1 = "truffle" ]]; then
   IP=`docker inspect $2 -f "{{.NetworkSettings.Networks.ethnet.IPAddress}}"`
+  docker exec -it $2 bash /home/ethuser/config/runTruffle.sh
   exit
 fi
 
@@ -103,5 +105,5 @@ echo "       cluster start                             - start the existing cont
 echo "       cluster stop                              - stop the running containers" 
 echo "       cluster login nodename                    - opens a console" 
 echo "       cluster geth nodename                     - open geth console"
-echo "       cluster log nodeName                      - displays node.log"
-echo "       cluster truffle nodename                  - displays truffle config to use the nodename"
+echo "       cluster log nodeName                      - displays node.log from node"
+echo "       cluster truffle nodeName                  - opens a truffle console in the node"

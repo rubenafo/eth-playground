@@ -12,6 +12,7 @@ RUN mkdir data config
 RUN git clone https://github.com/ethereum/go-ethereum
 RUN cd go-ethereum && make all
 COPY --chown=ethuser config /home/ethuser/config
+RUN cd /home/ethuser/config/truffle && npm install truffle
 USER root
 RUN cp /home/ethuser/go-ethereum/build/bin/* /usr/local/bin
 USER ethuser
