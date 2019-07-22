@@ -25,7 +25,7 @@ Builds and maintains 3 independent nodes in a Docker network and a *bootnode* to
 1. Clone this repo
 2. cd eth-playground
 2. ./build.sh
-3. ./cluster deploy
+3. ./epl deploy
 
 Docker will display 4 nodes (ethbn, eth1, eth2, eth3) running inside the **ethnet** network.
 
@@ -33,9 +33,9 @@ Docker will display 4 nodes (ethbn, eth1, eth2, eth3) running inside the **ethne
 
 Once installed the nodes are fully independentent and self-discoverable thanks to the bootnode in place (**ethbn**).
 
-* cluster login _nodeName_ : logs automatically inside the selected node
-* cluster geth _nodeName_  : opens a geth console inside the selected node
-* cluster stop : stops the eth network
-* cluster start: starts the network again
-* cluster deploy: stops and deploys the whole network again
-* cluster info: displays the netstat node URL containing the dashboard
+* epl login _nodeName_ : logs automatically inside the selected node
+* epl geth _nodeName_  : opens a geth console inside the selected node
+* epl stop : stops the eth network
+* epl start: starts the network again
+* epl deploy: stops and deploys the whole network again
+* epl info: displays the netstat node URL containing the dashboard
