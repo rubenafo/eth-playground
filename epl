@@ -107,4 +107,4 @@ echo "       epl stop                              - stop the running containers
 echo "       epl login nodename                    - opens a console" 
 echo "       epl geth nodename                     - open geth console"
 echo "       epl log nodeName                      - displays node.log from node"
-echo "       epl truffle nodeName                  - opens a truffle console in the node"
+echo "       epl truffle nodeName                  - switchs truffle config to connect to nodeName"
