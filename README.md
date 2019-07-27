@@ -15,10 +15,10 @@ Builds and maintains 3 independent nodes in a Docker network and a *bootnode* to
 * Vanilla Ethereum: everything is built and setup from scratch
 * Each node gets its own IP address and eth account, also:
    * broadcasts its default account id from the **9090** TCP port.
-   * reports stats to the *netsat* node that is running [eth-netstats](https://github.com/cubedro/eth-netstats)
+   * reports stats to the *netstat* node that is running [eth-netstats](https://github.com/cubedro/eth-netstats)
 * The *bootnode* node connects nodes dynamically when added into the network
 * A *netstat* node displaying the [eth-netstat dashboard](https://github.com/cubedro/eth-netstats)
-* A bunch of scripts to control the cluster: build, start, stop, login into nodes, etc
+* *epl*, a CLI tool to perform maintenance operations: build, start, stop, login into nodes, check truffle, etc
 
 ## Install
 
@@ -29,7 +29,7 @@ Builds and maintains 3 independent nodes in a Docker network and a *bootnode* to
 
 Docker will display 4 nodes (ethbn, eth1, eth2, eth3) running inside the **ethnet** network.
 
-## Usage
+## Epl Usage
 
 Once installed the nodes are fully independentent and self-discoverable thanks to the bootnode in place (**ethbn**).
 
