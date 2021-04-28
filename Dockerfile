@@ -7,7 +7,11 @@ USER root
 RUN useradd -m -s /bin/bash ethuser
 
 RUN apt-get update
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y --no-install-recommends --fix-missing openssh-server vim build-essential git golang ca-certificates iputils-ping curl netcat nodejs npm
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y --no-install-recommends --fix-missing openssh-server vim build-essential git ca-certificates iputils-ping curl netcat nodejs npm wget
+RUN wget https://golang.org/dl/go1.15.2.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.15.2.linux-amd64.tar.gz
+RUN export PATH=$PATH:/usr/local/go/bin
+RUN echo 'export PATH=$PATH:/usr/local/go/bin' >> /root/.bashrc
+RUN echo 'export PATH=$PATH:/usr/local/go/bin' >> /home/ethuser/.bashrc
 
 # Define the WORKDIR, because recent versions of NodeJS and NPM require it
 # Otherwise packages are installed at the container root folder
@@ -24,7 +28,8 @@ USER ethuser
 
 RUN mkdir data config
 RUN git clone https://github.com/ethereum/go-ethereum
-RUN cd go-ethereum && make geth && make all
+RUN cd go-ethereum && make geth
+RUN cd go-ethereum && make all
 COPY --chown=ethuser config /home/ethuser/config
 USER root
 RUN cp /home/ethuser/go-ethereum/build/bin/* /usr/local/bin
