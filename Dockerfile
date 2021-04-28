@@ -7,7 +7,12 @@ USER root
 RUN useradd -m -s /bin/bash ethuser
 
 RUN apt-get update
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y --no-install-recommends --fix-missing openssh-server vim build-essential git golang ca-certificates iputils-ping curl netcat nodejs npm
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y --no-install-recommends --fix-missing openssh-server vim build-essential git ca-certificates iputils-ping curl netcat nodejs npm wget unzip
+
+# Install v15.2 of golang
+RUN wget -q https://golang.org/dl/go1.15.2.linux-amd64.tar.gz && tar -xzf go1.15.2.linux-amd64.tar.gz
+RUN cp ./go/bin/* /usr/local/bin && cp -r go /usr/local
+RUN rm go1.15.2.linux-amd64.tar.gz && rm -rf go
 
 # Define the WORKDIR, because recent versions of NodeJS and NPM require it
 # Otherwise packages are installed at the container root folder
@@ -23,7 +28,14 @@ RUN npm install web3 express
 USER ethuser
 
 RUN mkdir data config
-RUN git clone https://github.com/ethereum/go-ethereum
+RUN export PATH=$PATH:/usr/local/go/bin
+
+# Fetch the latest version (release) of go-ethereum
+RUN curl -s "https://api.github.com/repos/ethereum/go-ethereum/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")' | xargs -I {} wget -q -O go-ethereum.tar.gz https://github.com/ethereum/go-ethereum/archive/refs/tags/{}.tar.gz
+RUN mkdir go-ethereum
+RUN tar xzf go-ethereum.tar.gz -C go-ethereum --strip-components 1
+
+# Make go-ethereum
 RUN cd go-ethereum && make geth && make all
 COPY --chown=ethuser config /home/ethuser/config
 USER root
